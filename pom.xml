@@ -5,7 +5,7 @@
 	<groupId>cn.mldn</groupId>
 	<artifactId>dibmp</artifactId>
 	<version>0.0.1</version>
-	<packaging>pom</packaging>
+	<packaging>pom</packaging> 
 
 	<name>dibmp</name>
 	<url>http://maven.apache.org</url>
