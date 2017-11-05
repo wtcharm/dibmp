@@ -1,11 +1,10 @@
 package cn.mldn.dibmp.service ;
 
 import java.util.Map;
+
 import java.util.Set;
 
 import cn.mldn.dibmp.vo.Member;
-
-
 public interface IMemberService {
 	/**
 	 * 根据用户ID获得一个用户的完整对象信息，包含有密码和锁定状态
