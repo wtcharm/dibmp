@@ -26,7 +26,7 @@ public class MemberRealm extends AuthorizingRealm {
 	private IMemberService memberService ;
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		// 此方法主要是实现用户的认证处理操作
+		// 此方法主要是实现用户的认证处理操作 
 		System.err.println("=========== 1、进行用户认证处理操作（doGetAuthenticationInfo()） ===========");
 		String mid = (String) token.getPrincipal() ; // 获得用户名的信息
 		Member member = this.memberService.get(mid) ;	// 根据用户名查询出用户的完整信息
@@ -45,7 +45,7 @@ public class MemberRealm extends AuthorizingRealm {
 		return new SimpleAuthenticationInfo(token.getPrincipal(), password.toCharArray(), "memberRealm");
 	}
 
-	@Override
+	@Override 
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		// 此方法主要用于用户的授权处理操作，授权一定要在认证之后进行
 		System.err.println("=========== 2、进行用户授权处理操作（doGetAuthorizationInfo()） ===========");

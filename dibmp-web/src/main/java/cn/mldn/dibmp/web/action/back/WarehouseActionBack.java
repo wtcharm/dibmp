@@ -26,7 +26,7 @@ public class WarehouseActionBack extends AbstractAction {
 	@Resource
 	private IWarehouseService warehouseService ;
 	@Resource
-	private IMemberService MemberService ;
+	private IMemberService MemberService ; 
 	@RequestMapping("add_pre")
 	public ModelAndView addPre() {
 		ModelAndView mav = new ModelAndView(super.getPage("warehouse.add.page"));
@@ -80,8 +80,17 @@ public class WarehouseActionBack extends AbstractAction {
 	@ResponseBody
 	@RequestMapping("listByDid")
 	public Object listByDid(String did) {
-		//long did = Long.parseLong(super.getRequest().getParameter("did")) ;
-		return MemberService.getByDid(Long.parseLong(did)) ;
-		//return did ;
+		SplitPageUtil spu = new SplitPageUtil(null,null) ;
+		return MemberService.getByDid(Long.parseLong(did),spu.getCurrentPage(),spu.getLineSize()) ;
+	}
+	
+	@ResponseBody
+	@RequestMapping("addAdmin")
+	public Object addAdmin(String admin,String wid) {
+		Warehouse vo = new Warehouse() ;
+		vo.setWid(Long.parseLong(wid));
+		vo.setAdmin(admin);
+		vo.setRecorder((String)SecurityUtils.getSubject().getSession().getAttribute("mid"));
+		return warehouseService.addAdmin(vo) ;
 	}
 }

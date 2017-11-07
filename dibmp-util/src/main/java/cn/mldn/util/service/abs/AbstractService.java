@@ -38,5 +38,13 @@ public abstract class AbstractService {
 		}
 		return map ;
 	}
+	
+	public Map<String,Object> paramToMap(long did,long current, int lineSize) {
+		Map<String,Object> map = new HashMap<String,Object>() ;
+		map.put("start", (current - 1) * lineSize) ;
+		map.put("lineSize", lineSize) ;
+		map.put("did", did) ;
+		return map ;
+	}
 
 }

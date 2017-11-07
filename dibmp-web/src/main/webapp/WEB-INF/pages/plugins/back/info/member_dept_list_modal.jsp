@@ -41,7 +41,7 @@
 									<button class="btn btn-danger btn-xs" id="addadmin-mldn">
 										<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;设置为库管</button>
 								</td>
-							</tr> 
+							</tr>
 						</tbody>
 					</table>
 				</div>

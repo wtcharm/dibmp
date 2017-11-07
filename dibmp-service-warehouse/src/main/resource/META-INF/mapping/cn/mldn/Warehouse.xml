@@ -27,6 +27,8 @@
 		</where>
 	</select>
 	
-	
+<update id="doCreateAdmin" parameterType="Warehouse">
+	UPDATE warehouse SET admin=#{admin} ,recorder=#{recorder}  WHERE wid=#{wid} ;
+</update>
 	
 </mapper>

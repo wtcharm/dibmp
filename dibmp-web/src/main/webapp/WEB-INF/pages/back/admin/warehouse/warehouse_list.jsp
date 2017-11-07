@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
-<script type="text/javascript" src="js/pages/back/admin/warehouse/warehouse_list.js"></script>
 <script type="text/javascript" src="js/split_page.js"></script>
+<script type="text/javascript" src="js/pages/back/admin/warehouse/warehouse_list.js"></script>
 <%!
 	public static final String WAREHOUSE_EDIT_URL = "pages/back/admin/warehouse/edit_pre.action" ;
 %>
@@ -46,7 +46,7 @@
 							<td class="text-center">${warehouse.wiid}</td>
 							<td class="text-center">${warehouse.maximum }</td>
 							<td class="text-center">${warehouse.currnum}</td>
-							<td class="text-center" id="admin-1"><span id="mid-admin" style="cursor:pointer;">${warehouse.admin}</span></td> 
+							<td class="text-center" id="admin-${warehouse.wid}"><span id="mid-admin" style="cursor:pointer;">${warehouse.admin}</span></td> 
 							<td class="text-left">
 								<button id="editadmin-${warehouse.wid}" class="btn btn-primary btn-xs">
 										<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;编辑库管</button>

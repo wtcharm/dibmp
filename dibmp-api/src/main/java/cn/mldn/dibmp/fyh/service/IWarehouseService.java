@@ -8,4 +8,5 @@ public interface IWarehouseService {
 	public Map<String,Object> addPre(Long wiid);
 	public boolean add(Warehouse vo);
 	public Map<String,Object> list(long currentPage, int lineSize, String column, String keyWord) ;
+	public boolean addAdmin(Warehouse vo) ;
 }

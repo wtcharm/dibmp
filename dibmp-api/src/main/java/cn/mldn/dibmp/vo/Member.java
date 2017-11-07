@@ -6,7 +6,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class Member implements Serializable {
 	private String mid ;
-	private Long did ;
+	private Long did ; 
 	private Long lid ;
 	private String name ;
 	private String password ;

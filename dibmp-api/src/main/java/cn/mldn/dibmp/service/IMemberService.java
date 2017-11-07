@@ -11,7 +11,7 @@ public interface IMemberService {
 	 * @param mid 要查询的用户ID
 	 * @return 用户对象，如果用户不存在返回null
 	 */
-	public Member get(String mid) ;
+	public Member get(String mid) ; 
 	/**
 	 * 根据指定的用户编号获得其对应的所有授权信息（角色、权限）
 	 * @param mid 用户ID
@@ -21,5 +21,5 @@ public interface IMemberService {
 	 */
 	public Map<String,Set<String>> getRoleAndActionByMember(String mid) ;
 	
-	public Map<String,Object> getByDid(Long did) ;
+	public Map<String,Object> getByDid(Long did,Long current,Integer lineSize) ;
 }

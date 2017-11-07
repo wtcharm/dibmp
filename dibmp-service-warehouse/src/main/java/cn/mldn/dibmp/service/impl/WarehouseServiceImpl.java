@@ -37,4 +37,9 @@ public class WarehouseServiceImpl extends AbstractService implements IWarehouseS
 		return map ;
 	}
 
+	@Override
+	public boolean addAdmin(Warehouse vo) {
+		return warehouseDAO.doCreateAdmin(vo) ;
+	}
+
 }
