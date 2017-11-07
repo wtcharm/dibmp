@@ -1,6 +1,7 @@
 package cn.mldn.dibmp.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,5 +34,14 @@ public class MemberServiceImpl implements IMemberService {
 		map.put("allActions", this.actionDAO.findAllByMember(mid)) ;
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> getByDid(Long did) {
+		Map<String,Object> map = new HashMap<String,Object>() ;
+		map.put("allMembers", memberDAO.findByDid(did)) ;
+		map.put("allCounts", memberDAO.findAllCount(did)) ;
+		return map ;
+	}
+
 
 }

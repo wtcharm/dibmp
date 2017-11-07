@@ -10,9 +10,9 @@
 					<div class="col-md-5">
 						<select id="did" name="did" class="form-control">
 							<option value="">====== 请选择雇员所在部门 ======</option>
-							<option value="10">开发部</option>
-							<option value="10">市场部</option>
-							<option value="10">财务部</option>
+							<option value="1">管理部</option>
+							<option value="7">后勤部</option>
+							<option value="8">仓储部</option>
 						</select>
 					</div>
 				</div>

@@ -5,4 +5,10 @@
 	<select id="findById" parameterType="String" resultType="Member">
 		SELECT mid,lid,did,name,salary,phone,password,photo,note,hiredate,inmid,locked FROM member WHERE mid=#{mid}
 	</select>
+	<select id="findByDid" parameterType="java.lang.Long" resultType="Member">
+		SELECT mid,lid,did,name,salary,phone,password,photo,note,hiredate,inmid,locked FROM member WHERE did=#{did}
+	</select>
+	<select id="findAllCount" parameterType="java.lang.Long" resultType="java.lang.Long">
+		SELECT count(*) FROM member WHERE did=#{did}
+	</select>
 </mapper>

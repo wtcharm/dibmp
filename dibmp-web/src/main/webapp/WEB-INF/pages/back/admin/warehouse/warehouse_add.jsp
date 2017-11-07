@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String WAREHOUSE_ADD_URL = "" ;
+	public static final String WAREHOUSE_ADD_URL = "pages/back/admin/warehouse/add.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/warehouse/warehouse_add.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -85,11 +85,11 @@
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="areaMsg"></div>
 							</div>
-							<div class="form-group" id="iidDiv">
+							<div class="form-group" id="wiidDiv">
 								<!-- 定义表单提示文字 -->
-								<label class="col-md-3 control-label" for="iid">仓库用途：</label>
+								<label class="col-md-3 control-label" for="wiid">仓库用途：</label>
 								<div class="col-md-5">
-									<select id="iid" name="iid" class="form-control">
+									<select id="wiid" name="wiid" class="form-control">
 										<option value="">====== 请选择库存商品类型 ======</option>
 										<option value="1">服装</option>
 										<option value="2">家电</option>
@@ -97,7 +97,7 @@
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
-								<div class="col-md-4" id="iidMsg"></div>
+								<div class="col-md-4" id="wiidMsg"></div>
 							</div>
 							<div class="form-group" id="maximumDiv">
 								<!-- 定义表单提示文字 -->

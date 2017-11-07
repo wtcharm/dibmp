@@ -26,4 +26,9 @@ public class TestMemberService extends TestCase {
 	public void testMembetRoleAndAction() {
 		System.err.println(this.memberService.getRoleAndActionByMember("mldn-warehouse"));
 	}
+	
+	@Test
+	public void testMembetGetByDid() {
+		System.err.println(this.memberService.getByDid(7L));
+	}
 }
