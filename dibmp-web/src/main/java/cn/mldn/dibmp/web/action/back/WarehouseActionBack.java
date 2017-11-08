@@ -75,7 +75,7 @@ public class WarehouseActionBack extends AbstractAction {
 		SplitPageUtil spu = new SplitPageUtil("仓库名称:name|仓库地址:address", super.getPage("warehouse.list.action")) ;
 		ModelAndView mav = new ModelAndView(super.getPage("warehouse.list.page"));
 		mav.addAllObjects(warehouseService.list(spu.getCurrentPage(), spu.getLineSize(), spu.getColumn(), spu.getKeyWord())) ;
-		return mav;
+		return mav; 
 	}
 	@ResponseBody
 	@RequestMapping("listByDid")
