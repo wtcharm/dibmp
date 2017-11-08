@@ -32,4 +32,13 @@ public interface IWarehouseService {
 	 * @return true
 	 */
 	public boolean addAdmin(Warehouse vo) ;
+	/**
+	 * 实现商品入库清单的（模糊）分页显示
+	 * @param currentPage
+	 * @param lineSize
+	 * @param column
+	 * @param keyWord
+	 * @return
+	 */
+	public Map<String,Object> listStorageApply(long currentPage, int lineSize, String column, String keyWord) ;
 }

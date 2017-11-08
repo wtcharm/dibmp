@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 
+import cn.mldn.dibmp.dao.IStorageApplyDAO;
 import cn.mldn.dibmp.dao.IWarehouseDAO;
 import cn.mldn.dibmp.fyh.service.IWarehouseService;
 import cn.mldn.dibmp.vo.Warehouse;
@@ -18,6 +19,8 @@ public class WarehouseServiceImpl extends AbstractService implements IWarehouseS
 	
 	@Resource
 	private IWarehouseDAO warehouseDAO ;
+	@Resource
+	private IStorageApplyDAO storageApplyDAO ;
 	@Override
 	public Map<String, Object> addPre(Long wiid) {
 		// TODO Auto-generated method stub
@@ -40,6 +43,14 @@ public class WarehouseServiceImpl extends AbstractService implements IWarehouseS
 	@Override
 	public boolean addAdmin(Warehouse vo) {
 		return warehouseDAO.doCreateAdmin(vo) ;
+	}
+
+	@Override
+	public Map<String, Object> listStorageApply(long currentPage, int lineSize, String column, String keyWord) {
+		Map<String,Object> map = new HashMap<String,Object>() ;
+		map.put("allStorageApply", storageApplyDAO.findSplit(super.paramToMap(currentPage, lineSize, column, keyWord))) ;
+		map.put("allCounts", storageApplyDAO.CountSplit(super.paramToMap(column, keyWord))) ;
+		return map ;
 	}
 
 }

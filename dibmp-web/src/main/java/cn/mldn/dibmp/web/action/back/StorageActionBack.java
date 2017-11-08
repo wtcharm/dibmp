@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.mldn.dibmp.fyh.service.IWarehouseService;
 import cn.mldn.util.action.abs.AbstractAction;
 import cn.mldn.util.web.SplitPageUtil;
 
@@ -11,6 +12,7 @@ import cn.mldn.util.web.SplitPageUtil;
 @RequestMapping("/pages/back/admin/storage/*")
 public class StorageActionBack extends AbstractAction {
 	private static final String TITLE = "商品入库" ;
+	private IWarehouseService warehouseService ;
 	@RequestMapping("add_pre")
 	public ModelAndView addPre() {
 		ModelAndView mav = new ModelAndView(super.getPage("storage.add.page"));
@@ -35,13 +37,18 @@ public class StorageActionBack extends AbstractAction {
 	}
 	@RequestMapping("list_details") 
 	public ModelAndView listDetails() {
-		ModelAndView mav = new ModelAndView(super.getPage("storage.list.details.page"));
+		SplitPageUtil spu = new SplitPageUtil("入库单编号:said|申请标题:title", super.getPage("storage.list.action")) ;
+		ModelAndView mav = new ModelAndView(super.getPage("storage.list.page"));
+		mav.addAllObjects(warehouseService.list(spu.getCurrentPage(), spu.getLineSize(), spu.getColumn(), spu.getKeyWord())) ;
 		return mav;
 	}
 	@RequestMapping("list_myself") 
 	public ModelAndView listMyself() {
-		SplitPageUtil spu = new SplitPageUtil("申请标题:title", "customer.list.myself.action") ;
+		SplitPageUtil spu = new SplitPageUtil("入库单编号:said|申请标题:title", super.getPage("storage.list.action")) ;
 		ModelAndView mav = new ModelAndView(super.getPage("storage.list.myself.page"));
+		mav.addAllObjects(warehouseService.list(spu.getCurrentPage(), spu.getLineSize(), spu.getColumn(), spu.getKeyWord())) ;
 		return mav;
+		
+				
 	}
 }

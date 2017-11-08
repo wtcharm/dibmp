@@ -3,19 +3,24 @@ package cn.mldn.dibmp.vo;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Witem implements Serializable {
-	private Long wiid;
+public class Citem implements Serializable {
+	private Long ciid;
 	private String title;
-	public Long getWiid() {
-		return wiid;
+
+	public Long getCiid() {
+		return ciid;
 	}
-	public void setWiid(Long wiid) {
-		this.wiid = wiid;
+
+	public void setCiid(Long ciid) {
+		this.ciid = ciid;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 }

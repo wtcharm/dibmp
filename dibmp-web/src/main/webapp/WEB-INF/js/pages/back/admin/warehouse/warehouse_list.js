@@ -77,8 +77,7 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 								"</tr> ") ;
 					// console.log($("#memberName-"+members[y].mid).text()) ;
 				}
-				createSplitBar(data.allCounts) ;
-				// 创建分页控制项
+				createSplitBar(data.allCounts) ;   // 创建分页控制项
 				$("button[id^=addadmin_]").each(function(){
 					//console.log($("#memberName-mldn26").text()) ;
 					$(this).on("click",function(){

@@ -25,5 +25,4 @@ public class Subtype implements Serializable {
 	public void setWiid(Long wiid) {
 		this.wiid = wiid;
 	}
-	
 }
