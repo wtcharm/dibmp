@@ -47,6 +47,9 @@
 
 		<slf4j.version>1.7.25</slf4j.version>
 		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+		
+		<spring-data.redis.version>2.0.0.RELEASE</spring-data.redis.version>
+		<jedis.version>2.9.0</jedis.version>
 		<!-- 配置一些环境的属性信息 -->
 		<jdk.version>1.8</jdk.version>
 		<profiles.dir>src/main/profiles</profiles.dir>
@@ -55,6 +58,16 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring-data.redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>cn.mldn</groupId>
 				<artifactId>dibmp-util</artifactId>

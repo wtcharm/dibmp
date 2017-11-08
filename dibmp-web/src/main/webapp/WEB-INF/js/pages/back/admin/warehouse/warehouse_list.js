@@ -66,7 +66,7 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 								"	<td class='text-center'>" +
 								"		<img src='upload/emp/"+"nophoto.png"+"' style='width:20px;'/> " +
 								"	</td>" +
-								"	<td class='text-center' id='memberName-"+y+" ' nameVal='"+members[y].name+"' >"+members[y].name+"</td>" +
+								"	<td class='text-center' id='memberName-"+members[y].name+" ' nameVal='"+members[y].name+"' >"+members[y].name+"</td>" +
 								"	<td class='text-center'>"+members[y].lid+"</td>" +
 								"	<td class='text-center'>"+members[y].phone+"</td>" +
 								"	<td class='text-center'>"+
@@ -80,7 +80,7 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 				createSplitBar(data.allCounts) ;
 				// 创建分页控制项
 				$("button[id^=addadmin_]").each(function(){
-					console.log($("#memberName-mldn26").text()) ;
+					//console.log($("#memberName-mldn26").text()) ;
 					$(this).on("click",function(){
 						//console.log(this.id) ;
 						mid = this.id.split("_")[1] ;
@@ -89,8 +89,8 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 						//console.log("仓库编号：" + wid) ;
 						nameId = "memberName-"+mid ;
 						//name = $("#"+nameId).attr("nameval") ;
-						name = $("#"+nameId).text() ;
-						console.log("姓名Id：" + nameId) ;
+						name = $("#"+nameId).html() ;
+						console.log("姓名Id：" + name) ;
 						flag = "false" ;
 						$.post("pages/back/admin/warehouse/addAdmin.action",{"wid":wid,"admin":mid},function(data){
 //							flag = data ;

@@ -29,6 +29,6 @@ public class TestMemberService extends TestCase {
 	
 	@Test
 	public void testMembetGetByDid() {
-		System.err.println(this.memberService.getByDid(7L));
+		System.err.println(this.memberService.getByDid(7L,1L,5));
 	}
 }

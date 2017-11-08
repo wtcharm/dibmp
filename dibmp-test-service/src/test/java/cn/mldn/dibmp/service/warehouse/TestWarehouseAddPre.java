@@ -1,6 +1,7 @@
 package cn.mldn.dibmp.service.warehouse;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.annotation.Resource;
 
@@ -32,6 +33,16 @@ public class TestWarehouseAddPre {
 	public void testList() {
 		System.err.println(wareService.list(1, 5, "name", ""));
 		assertNotNull(wareService.list(1, 5, "name", ""));
+		
+	}
+	
+	@Test
+	public void testAddAdmin() {
+		Warehouse vo = new Warehouse() ;
+		vo.setWid(22L);
+		vo.setAdmin("mldn-1");
+		vo.setRecorder("mldn-13");
+		assertTrue(wareService.addAdmin(vo));
 		
 	}
 }
