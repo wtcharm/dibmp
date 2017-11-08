@@ -20,6 +20,12 @@ public interface IMemberService {
 	 * 2、key = allActions、value = 该用户具备的所有权限
 	 */
 	public Map<String,Set<String>> getRoleAndActionByMember(String mid) ;
-	
+	/**
+	 * 根据部门编号查找所有雇员信息，并完成分页
+	 * @param did 部门编号
+	 * @param current 当前页数
+	 * @param lineSize 显示行数
+	 * @return map
+	 */
 	public Map<String,Object> getByDid(Long did,Long current,Integer lineSize) ;
 }
