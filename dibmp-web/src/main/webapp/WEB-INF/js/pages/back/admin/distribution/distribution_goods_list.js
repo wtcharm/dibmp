@@ -6,20 +6,29 @@ $(function() {
 	// 设置修改单独数量的操作
 	$("button[id*=updateBtn-]").each(function(){
 		var gid = this.id.split("-")[1] ;
+		var price = $("span[id^=price-"+gid+"]").text();
+		var name = $("span[id^=name-"+gid+"]").text();
+		var stornum = $("span[id^=stornum-"+gid+"]").text();
 		$(this).on("click",function(){
-			var amount = parseInt($("#amount-" + gid).val()) ;	// 直接取得value属性
-			if (amount == 0) {
+			var num = parseInt($("#amount-" + gid).val()) ;	// 直接取得value属性
+			if (num == 0) {
 				$("#goods-" + gid).remove() ;
 			}
-			operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
+			$.post("pages/back/admin/goods/updateUnStorageGoods.action",
+					{"gid":gid,"price":price,"name":name,"stornum":stornum,"num":num},function(data){
+						if(data == "true"){
+							operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
+						}else{
+							operateAlert(false,"商品数量修改成功！","商品数量修改失败！") ;
+						}
+			},"json")
 		}) ;
 	}) ;  
-	// 实现整体修改操作的功能
+	
 	$(editBtn).on("click",function(){
-		// 定义一个数组，保存所有需要被删除的gid数据
 		var delGid = new Array() ;
 		var foot = 0 ;
-		var data = "" ; // 实现最终数据拼凑的字符串
+		var data = "" ; 
 		$("[id*=amount-]").each(function(){
 			var gid = this.id.split("-")[1] ;
 			var amount = this.value ;
@@ -30,7 +39,7 @@ $(function() {
 			}
 		}) ;
 		// 进行ajax异步数据处理操作
-		operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
+		//operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
 	}) ;
 	$("#rmBtn").on("click",function(){	// 绑定用户锁定操作
 		var data = "" ;
@@ -39,14 +48,18 @@ $(function() {
 				data += this.value + "," ;
 			}
 		}) ;
-		if (data != "") {
-			$(":checked").each(function() {
-				$("#goods-" + this.value).remove() ;
-			});
-			operateAlert(true,"商品信息移除成功！","商品信息移除失败！") ;
-		} else {
-			operateAlert(false,"","请先选择要移除的商品信息。") ;
-		}
+		$.post("pages/back/admin/goods/deleteGoods",{"ids":data},function(data){
+			if(data == "true"){
+				if (data != "") {
+					$(":checked").each(function() {
+						$("#goods-" + this.value).remove() ;
+					});
+				}
+				operateAlert(true,"商品信息移除成功！","商品信息移除失败！") ;
+			}else{
+				operateAlert(false,"商品信息移除成功！","商品信息移除失败！") ;
+			}
+		},"json")
 	}) ;
 	$("button[id*=add-]").each(function(){
 		var gid = this.id.split("-")[1] ; // 取得商品ID数据
@@ -66,7 +79,45 @@ $(function() {
 			}
 		})
 	}) ; 
+	
+	$(createBtn).on("click",function(){
+		var ids = "" ;
+		var sumAmount = 0 ;
+		var sumPrice = 0.0;
+		$(":checked").each(function() {
+			if(this.id == "gid") {
+				ids += this.value + "," ;
+			}
+		}) ;
+		if(ids !=""){
+			$("[id*=amount-]").each(function(){
+				var gid = this.id.split("-")[1] ;
+				var  amount = parseInt(this.value) ;
+				if(amount != 0){
+					sumAmount += amount;
+				}
+			})
+			$("span[id*=price-]").each(function(){
+				var gid = this.id.split("-")[1];
+				var price = $(this).text();
+				var amount = $("#amount-" + gid).val() ;
+				sumPrice += parseFloat(price) * parseInt(amount) ; 
+			});
+		}
+		$.post("pages/back/admin/goods/calculateAmountAndSumPrice",{"amount":sumAmount,"sumPrice":sumPrice,"ids":ids},function(data){
+			if(data == "true"){
+				window.location = "http://localhost:80/dibmp/pages/back/admin/goods/add_pre";
+			}else{
+				window.location = "http://localhost:80/dibmp/pages/back/admin/goods/unStorageGoods";
+			}
+		},"json");
+	});
 })
+
+
+
+
+
 function calSum() {
 	var sumPrice = 0.0 ;	// 保存总价
 	// 计算购买的商品的总价数据

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.DistributionDetailsMapper">
+	
+	<select id="findDistributionDetails" resultType="DistributionDetails">
+	     select 
+	       g.gid,
+	       g.name,
+	       g.price,
+	       sad.num,
+	       sa.wid
+	    from goods g 
+	        inner join storage_record sr on g.gid = sr.gid
+	        inner join storage_apply_details sad on sr.said = sad.said
+	        inner join storage_apply sa on  sad.said = sa.said
+	    where g.gid=#{gid}
+	</select>
+	
+	<insert id="doCreate">
+	     insert into distribution_details 
+	           (gid,name,num,price,status,wid,outmid) 
+	     values 
+	           (#{gid},#{name},#{num},#{price},#{status},#{wid},#{outmid});
+	</insert>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mldn.dibmp.dao.IStorageApplyDAO">
+	<insert id="doCreate" parameterType="StorageApply">
+		INSERT INTO storage_apply(title,pid,cid,wiid,wid,note,status,appmid,auname,apptime,autime)
+		VALUES (#{title},#{pid},#{cid},#{wiid},#{wid},#{note},#{status},#{appmid},#{auname},#{apptime},#{autime})
+	</insert>
+	<update id="doEditStatus" parameterType="map">
+		UPDATE storage_apply SET status=#{status},autime=#{autime},auname=#{auname} WHERE said=#{said};
+	</update>
+
+	<select id="findSplit" parameterType="map" resultType="StorageApply">
+		SELECT said,title,pid,cid,wiid,wid,note,status,appmid,auname,apptime,autime
+		FROM storage_apply
+		<where>
+			<if test="column != null and keyWord != null">
+				${column} LIKE #{keyWord} and
+			</if>
+			status=#{status}
+		</where>
+			  LIMIT #{startPage},#{lineSize};
+	</select>
+	
+	<select id="CountSplit" resultType="Long" parameterType="map">
+		SELECT count(*) FROM storage_apply 
+		<where>
+			<choose>
+				<when test="column !=null and keyWord !=null">
+					${column} LIKE #{keyWord} and status=#{status}
+				</when>
+				<otherwise>
+					status=#{status}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="findAll" resultType="StorageApply">
+		SELECT said,title,pid,cid,wiid,wid,note,status,appmid,auname,apptime,autime
+		FROM storage_apply WHERE status=1;
+	</select>
+	
+	<select id="findBySaid" parameterType="map" resultType="StorageApply">
+		SELECT said,title,pid,cid,wiid,wid,note,status,appmid,auname,apptime,autime
+		FROM storage_apply WHERE said=#{said} and status=#{status};
+	</select>
+	
+</mapper>

@@ -17,7 +17,7 @@
 		<div class="content-wrapper text-left">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<strong><span class="glyphicon glyphicon-list"></span>&nbsp;我的出库申请单</strong>
+				<strong><span class="glyphicon glyphicon-list"></span>&nbsp;我的出库商品详情</strong>
 			</div>
 			<div class="panel-body">
 				<div>

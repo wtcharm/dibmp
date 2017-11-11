@@ -1,4 +1,19 @@
 $(function(){
+	$(wiid).on("change",function(){
+//		 console.log(this.value);
+			if (this.value != "") {	// 有内容，需要进行ajax异步加载
+				$.post("pages/back/admin/goods/listSubtype.action",{"wiid":this.value},
+						function(data){
+					$("#stid option:gt(0)").remove() ;
+					for (x = 0 ; x < data.length ; x ++) {
+						$("#stid").append("<option value='"+data[x].stid+"'>"+data[x].title+"</option>") ;
+					}
+				},"json") ;
+			} else {
+				$("#stid option:gt(0)").remove() ;
+			}
+		}) ;
+	
 	$("#myform").validate({
 		debug : true, // 取消表单的提交操作
 		submitHandler : function(form) {
@@ -27,7 +42,7 @@ $(function(){
 			"name" : {
 				required : true
 			} ,
-			"tid" : {
+			"wiid" : {
 				required : true 
 			},
 			"stid" : {
@@ -39,10 +54,11 @@ $(function(){
 			},
 			"weight" : {
 				required : true ,
-				digits : true 
+//				digits : true 
+				number : true 
 			},
 			"pic" : {
-				required : true ,
+//				required : true ,
 				accept : ["jpg","png","gif","bmp"]
 			},
 			"note" : {

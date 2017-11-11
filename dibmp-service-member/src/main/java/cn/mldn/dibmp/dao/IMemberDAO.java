@@ -9,4 +9,5 @@ public interface IMemberDAO {
 	public Member findById(String id);
 	public List<Member> findSplitByDid(Map<String,Object> params) ;
 	public Long findAllCount(Long did) ;
+	public Member findByName(String name);
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mldn.dibmp.dao.IStorageRecordDAO">
+  <insert id="doCreate" parameterType="StorageRecord">
+  	INSERT INTO storage_record(said,gid,name,num,price,weight,status,inmid)
+  	VALUES (#{said},#{gid},#{name},#{num},#{price},#{weight},#{status},#{inmid})
+  </insert>
+  
+  <select id="findBySaid" parameterType="Long" resultType="StorageRecord">
+  	SELECT srid,said,gid,name,num,price,weight,status,inmid
+  	FROM storage_record WHERE said=#{said};
+  </select>
+ 
+</mapper>

@@ -15,4 +15,7 @@ public interface IStorageApplyDAO {
 	
 	public List<StorageApply> findSplit(Map<String,Object> params) ;
 	public Long CountSplit(Map<String,Object> params) ;
+	public StorageApply findBySaid(Long said) ;
+	public boolean doEditStatus(StorageApply vo) ;
+	public boolean doDelete(Long said) ;
 }

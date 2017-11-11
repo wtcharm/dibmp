@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String GOODS_EDIT_URL = "" ;
+	public static final String GOODS_EDIT_URL = "pages/back/admin/goods/edit.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/goods/goods_edit.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -22,7 +22,7 @@
 					<strong><span class="glyphicon glyphicon-user"></span>&nbsp;编辑商品信息</strong>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" action="<%=GOODS_EDIT_URL%>" id="myform" method="post" enctype="multipart/form-data">
+					<form class="form-horizontal" action="<%=GOODS_EDIT_URL%>?gid=${Goods.gid}" id="myform" method="post" enctype="multipart/form-data">
 						<fieldset>
 							<!-- 定义输入表单样式，其中id主要用于设置颜色样式 -->
 							<div class="form-group" id="nameDiv">
@@ -31,7 +31,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="name" name="name" class="form-control"
-										placeholder="请输入仓库标记名称">
+										placeholder="请输入商品名称" value="${Goods.name}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="nameMsg"></div>
@@ -40,11 +40,16 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="tid">商品分类：</label>
 								<div class="col-md-5">
-									<select id="tid" name="tid" class="form-control">
-										<option value="">====== 请选择商品所属分类 ======</option>
-										<option value="1">手机数码</option>
-										<option value="2">女鞋、箱包</option>
-										<option value="3">电脑、办公</option>
+									<select id="wiid" name="wiid" class="form-control">
+										<option value="">====== 请选择商品类型 ======</option>
+										<c:forEach items="${allWitem}" var="witem">
+											<c:if test="${Goods.wiid==witem.wiid}">
+												<option value="${witem.wiid}" selected>${witem.title}</option>
+											</c:if>
+											<c:if test="${Goods.wiid!=witem.wiid}">
+												<option value="${witem.wiid}">${witem.title}</option>
+											</c:if>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -56,9 +61,14 @@
 								<div class="col-md-5">
 									<select id="stid" name="stid" class="form-control">
 										<option value="">====== 请选择商品所属子分类 ======</option>
-										<option value="1">手机</option>
-										<option value="2">老人机</option>
-										<option value="3">平板电脑</option>
+										<c:forEach items="${allSubtype}" var="subtype">
+											<c:if test="${Goods.stid==subtype.stid}">
+												<option value="${subtype.stid}" selected>${subtype.title}</option>
+											</c:if>
+											<c:if test="${Goods.stid!=subtype.stid}">
+												<option value="${subtype.stid}" >${subtype.title}</option>
+											</c:if>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -69,7 +79,7 @@
 								<label class="col-md-3 control-label" for="price">商品单价（￥）：</label>
 								<div class="col-md-5">
 									<input type="text" id="price" name="price" class="form-control"
-										placeholder="请输入商品单价">
+										placeholder="请输入商品单价" value="${Goods.price}">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="priceMsg"></div>
@@ -80,7 +90,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="weight" name="weight" class="form-control"
-										placeholder="请输入商品重量.">
+										placeholder="请输入商品重量." value="${Goods.weight}" >
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="weightMsg"></div>
@@ -90,11 +100,17 @@
 								<label class="col-md-3 control-label" for="pic">商品图片：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<input type="file" id="pic" name="pic" class="form-control"
-										placeholder="请上传商品照片">
+									<span class="text-center">
+										<img src="http://192.168.28.146/${Goods.photo}" style="width:200px;"/> 
+									</span>
+									<span>
+										<input type="hidden" id="photo" name="photo" value="${Goods.photo}"/>
+										<input type="file" id="pic" name="pic" class="form-control"
+										placeholder="请上传商品照片">				
+									</span>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
-								<div class="col-md-4" id="picMsg"></div>
+								<div class="col-md-4" id="picMsg">如果不修改可以不选择</div>
 							</div>
 							<!-- 定义输入表单样式，其中id主要用于设置颜色样式 -->
 							<div class="form-group" id="noteDiv">
@@ -103,7 +119,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<textarea id="note" name="note"
-										class="form-control" placeholder="请输入商品的详细信息" rows="10"></textarea>
+										class="form-control" placeholder="请输入商品的详细信息" rows="10">${Goods.note}</textarea>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="noteMsg"></div>

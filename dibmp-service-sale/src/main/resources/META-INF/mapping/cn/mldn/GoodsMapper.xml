@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.GoodsMapper">
+	
+	<resultMap type="Goods" id="goodsMap">
+	      <id property="gid" column="gid"/>
+	      <result property="name" column="name"/>
+	      <result property="wiid" column="wiid"/>
+	      <result property="wiid" column="stid"/>
+	      <result property="price" column="price"/>
+	      <result property="weight" column="weight"/>
+	      <result property="photo" column="photo"/>
+	      <result property="note" column="note"/>
+	      <result property="lastin" column="lastin"/>
+	      <result property="stornum" column="stornum"/>
+	      <result property="recorder" column="recorder"/>
+	      <result property="delflag" column="delflag"/>
+	</resultMap>
+	
+	<resultMap type="GoodsStorage" id="goodStoreMap">
+	      <result property="gid" column="gid"/>
+	      <result property="name" column="name"/>
+	      <result property="price" column="price"/>
+	      <result property="weight" column="weight"/>
+	      <result property="photo" column="photo"/>
+	      <result property="note" column="note"/>
+	      <result property="lastin" column="lastin"/>
+	      <result property="stornum" column="stornum"/>
+	      <result property="num" column="num"/>
+	</resultMap>
+	
+	<resultMap type="GoodsStorageAndApply" id="goodStoreApplyMap">
+	      <result property="pid" column="pid"/>
+	      <result property="cid" column="cid"/>
+	      <result property="wid" column="wid"/>
+	      <result property="num" column="num"/>
+	</resultMap>
+	
+	<resultMap type="GoodsStorageDetails" id="goodsStorageDetailsMap">
+	      <result property="wid" column="wid"/>
+	      <result property="inmid" column="inmid"/>
+	      <result property="lastin" column="lastin"/>
+	      <result property="stornum" column="stornum"/>
+	       <result property="appmid" column="appmid"/>
+	</resultMap>
+	
+	<update id="doUpdate">
+	       update goods
+	       <set>
+	           <if test="name != null and name != ''">
+			      name = #{name},
+			   </if>
+			   <if test="wiid != null and wiid != ''">
+			     wiid = #{wiid},
+			   </if>
+			    <if test="price != null and price != ''">
+			     price = #{price},
+			   </if>
+			    <if test="wiid != null and wiid != ''">
+			     price = #{price},
+			   </if>
+			    <if test="price != null and price != ''">
+			     price = #{price},
+			   </if>
+			   <if test="photo != null and photo != ''">
+			     photo = #{photo},
+			   </if>
+			   <if test="note != null and note != ''">
+			     note = #{note},
+			   </if>
+			   <if test="lastin != null and lastin != ''">
+			     lastin = #{lastin},
+			   </if>
+			   <if test="stornum != null and stornum != ''">
+			     stornum = #{stornum},
+			   </if>
+			   <if test="recorder != null and recorder != ''">
+			     recorder = #{recorder},
+			   </if>
+			   <if test="delflag != null and delflag != ''">
+			    delflag = #{delflag},
+			   </if>
+			   gid = #{gid}
+	       </set>
+	       where gid = #{gid} 
+	</update>
+	
+	
+	<select id="findById" resultType="Goods">
+	     select gid,
+	           name,
+	           wiid,
+	           stid,
+	           price,
+	           weight,
+	           photo,
+	           note,
+	           lastin,
+	           stornum,
+	           recorder,
+	           deflag
+	    from goods
+	    where gid = #{gid}
+	</select>
+	
+	<select id="findGoodsDetailsById" resultType="GoodsStorage">
+	     select g.gid,
+	           g.name,
+	           g.price,
+	           g.weight,
+	           g.photo,
+	           g.note,
+	           g.lastin,
+	           g.stornum,
+	           sr.num
+	    from goods g 
+	        inner join 
+	        storage_record sr on g.gid=sr.gid
+	    where g.gid=#{gid}
+	</select>
+	
+	<select id="findGoodsStorageApply" resultType="GoodsStorageAndApply">
+	     select 
+	        sa.pid,
+	        sa.cid,
+	        sa.wid,
+	        sad.num
+	    from goods g 
+	        inner join storage_apply_details sad on g.gid = sad.gid
+	        inner join storage_apply sa on sa.said = sad.said
+	    where g.gid=#{gid}
+	</select>
+	
+	<select id="findGoodsStorageDetails" resultType="GoodsStorageDetails">
+	     select 
+	        sa.wid,
+	        sad.inmid,
+	        sa.appmid,
+	        g.lastin,
+	        g.stornum
+	    from goods g 
+	        inner join storage_record sad on g.gid = sad.gid
+	        inner join storage_apply sa on sa.said = sad.said
+	    where g.gid=#{gid}
+	</select>
+	
+	<select id="findDistributionDetails" resultType="DistributionDetails">
+	     select 
+	       g.gid,
+	       g.name,
+	       g.price,
+	       sad.num,
+	       sa.wid
+	    from goods g 
+	        inner join storage_record sr on g.gid = sr.gid
+	        inner join storage_apply_details sad on sr.said = sad.said
+	        inner join storage_apply sa on  sad.said = sa.said
+	    where g.gid=#{gid}
+	</select>
+	
+	
+	<select id="findAllSplit" parameterType="java.util.Map" resultType="Goods">
+	    select gid,
+	           name,
+	           wiid,
+	           stid,
+	           price,
+	           weight,
+	           photo,
+	           note,
+	           lastin,
+	           stornum,
+	           recorder,
+	           delflag
+	    from goods
+	    <where>
+			<if test="column != null and keyWord != null">
+				${column} LIKE #{keyWord}
+			</if>
+		</where>
+	   LIMIT #{start},#{lineSize}
+	</select>
+	
+	<select id="getSplitCount"  parameterType="java.util.Map" resultType="Long">
+	    select count(*) 
+	    from goods
+	   <where>
+			<if test="column != null and keyWord != null">
+				${column} LIKE #{keyWord}
+			</if>
+		</where>
+	</select>
+</mapper>

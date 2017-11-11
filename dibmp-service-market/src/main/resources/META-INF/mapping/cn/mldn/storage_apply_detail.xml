@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mldn.dibmp.dao.ccc.IStorageApplyDetailsDAO">
+  <insert id="doCreate" parameterType="StorageApplyDetails">
+  	INSERT INTO storage_apply_details(gid,name,num,price,weight)
+  	VALUES (#{gid},#{name},#{num},#{price},#{weight})
+  </insert>
+  
+  <select id="findBySaid" parameterType="Long" resultType="StorageApplyDetails">
+  	SELECT sadid,said,gid,name,num,price,weight
+  	FROM storage_apply_details WHERE said=#{said};
+  </select>
+  
+  <select id="findSumPrice" parameterType="Long" resultType="Double">
+  	SELECT SUM(num*price) FROM storage_apply_details WHERE said=#{said};
+  </select>
+  
+  <select id="findSumSadid" parameterType="Long" resultType="Double">
+ 	 SELECT SUM(num*price) FROM storage_apply_details WHERE sadid=#{sadid};
+  </select>
+  
+  <select id="findCountNum" parameterType="Long" resultType="Integer">
+  	SELECT COUNT(num) FROM storage_apply_details WHERE said=#{said};
+  </select>
+  
+</mapper>

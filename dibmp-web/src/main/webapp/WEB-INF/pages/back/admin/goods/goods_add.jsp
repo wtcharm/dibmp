@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String GOODS_ADD_URL = "" ;
+	public static final String GOODS_ADD_URL = "pages/back/admin/goods/addGoods.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/goods/goods_add.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -31,7 +31,7 @@
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
 									<input type="text" id="name" name="name" class="form-control"
-										placeholder="请输入仓库标记名称">
+										placeholder="请输入商品名称">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="nameMsg"></div>
@@ -40,11 +40,11 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="tid">商品分类：</label>
 								<div class="col-md-5">
-									<select id="tid" name="tid" class="form-control">
-										<option value="">====== 请选择商品所属分类 ======</option>
-										<option value="1">手机数码</option>
-										<option value="2">女鞋、箱包</option>
-										<option value="3">电脑、办公</option>
+									<select id="wiid" name="wiid" class="form-control">
+										<option value="">====== 请选择商品类型 ======</option>
+										<c:forEach items="${allWitem}" var="witem">
+											<option value="${witem.wiid}">${witem.title}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -56,9 +56,6 @@
 								<div class="col-md-5">
 									<select id="stid" name="stid" class="form-control">
 										<option value="">====== 请选择商品所属子分类 ======</option>
-										<option value="1">手机</option>
-										<option value="2">老人机</option>
-										<option value="3">平板电脑</option>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -90,8 +87,7 @@
 								<label class="col-md-3 control-label" for="pic">商品图片：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<input type="file" id="pic" name="pic" class="form-control"
-										placeholder="请上传商品照片">
+									<input type="file" id="pic" name="pic" class="form-control" />
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="picMsg"></div>

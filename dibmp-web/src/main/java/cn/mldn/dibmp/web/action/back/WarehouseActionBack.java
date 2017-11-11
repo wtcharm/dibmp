@@ -1,8 +1,5 @@
 package cn.mldn.dibmp.web.action.back;
 
-import java.io.File;
-import java.util.UUID;
-
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,8 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.mldn.dibmp.fyh.service.IWarehouseService;
 import cn.mldn.dibmp.service.IMemberService;
 import cn.mldn.dibmp.vo.Warehouse;
-import cn.mldn.dibmp.web.realm.MemberRealm;
 import cn.mldn.util.action.abs.AbstractAction;
+import cn.mldn.util.fastdfs.FastDFS;
 import cn.mldn.util.web.SplitPageUtil;
 
 @Controller
@@ -38,25 +35,17 @@ public class WarehouseActionBack extends AbstractAction {
 		String mid = (String) SecurityUtils.getSubject().getSession().getAttribute("mid");
 		vo.setRecorder(mid);
 		vo.setCurrnum(0);
-		if(pic==null||pic.isEmpty()) {
-			vo.setPhoto("nophoto.jpg");
+		if(pic.getSize()==0) {
+			vo.setPhoto("group1/M00/00/00/wKgclVoDyeOAJIEHAAA21Ria8C4574.jpg");
 		}else {
-			String fileExt = pic.getOriginalFilename().substring(pic.getOriginalFilename().lastIndexOf("."));
-			String fileName = UUID.randomUUID()+ fileExt;
-			String filePath = super.getRequest().getServletContext().getRealPath("/upload/warehouse/") + UUID.randomUUID() + fileExt;
-			try {
-				pic.transferTo(new File(filePath));
-				vo.setPhoto(fileName);
-				if(warehouseService.add(vo)) {
-					super.setMsgAndUrl(mav, "warehouse.add.action", "vo.add.success", TITLE);
-				}else {
-					super.setMsgAndUrl(mav, "warehouse.add.action", "vo.add.failure", TITLE);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				super.setMsgAndUrl(mav, "warehouse.add.action", "vo.add.failure", TITLE);
-			} // 进行文件转存
-		}	
+			String fileName = FastDFS.upload(pic);
+			vo.setPhoto(fileName);
+		}
+		if(warehouseService.add(vo)) {
+			super.setMsgAndUrl(mav, "warehouse.add.action", "vo.add.success", TITLE);
+		}else {
+			super.setMsgAndUrl(mav, "warehouse.add.action", "vo.add.failure", TITLE);
+		}
 		return mav;
 	}
 	@RequestMapping("edit_pre")

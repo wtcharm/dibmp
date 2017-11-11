@@ -62,7 +62,8 @@ function loadData() {	// 该函数名称一定要固定，不许修改
 				members = data.allMembers ;
 				console.log(members.length) ;
 				for(y = 0 ; y <members.length ;y++){
-					 $("#memberBasicInfo tbody").append("<tr id='travel-"+members[y].mid+"'>" + 
+					 $("#memberBasicInfo tbody").append(
+							 	"<tr id='travel-"+members[y].mid+"'>" + 
 								"	<td class='text-center'>" +
 								"		<img src='upload/emp/"+"nophoto.png"+"' style='width:20px;'/> " +
 								"	</td>" +

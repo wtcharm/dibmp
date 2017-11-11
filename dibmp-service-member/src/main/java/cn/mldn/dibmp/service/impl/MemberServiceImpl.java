@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.mldn.dibmp.dao.IActionDAO;
+import cn.mldn.dibmp.dao.IDeptDAO;
+import cn.mldn.dibmp.dao.ILevelDAO;
 import cn.mldn.dibmp.dao.IMemberDAO;
 import cn.mldn.dibmp.dao.IRoleDAO;
 import cn.mldn.dibmp.service.IMemberService;
@@ -23,6 +25,10 @@ public class MemberServiceImpl extends AbstractService  implements IMemberServic
 	private IRoleDAO roleDAO ;
 	@Resource
 	private IActionDAO actionDAO ;
+	@Resource
+	private IDeptDAO deptDAO;
+	@Resource
+	private ILevelDAO levelDAO;
 	@Override
 	public Member get(String mid) {
 		return this.memberDAO.findById(mid);
@@ -44,5 +50,14 @@ public class MemberServiceImpl extends AbstractService  implements IMemberServic
 		return map ;
 	}
 
+	@Override
+	public Map<String, Object> getDeptAndLevelByMember(String name) {
+		    Map<String, Object> map = new HashMap<String,Object>();
+		    Member member = this.memberDAO.findByName(name);
+		    map.put("allMember", member);
+		    map.put("allDept",this.deptDAO.findById(member.getDid()));
+		    map.put("allLevle",this.levelDAO.findById(member.getLid()));
+		   return map;
+	}
 
 }

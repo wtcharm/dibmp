@@ -5,17 +5,23 @@
 		INSERT INTO storage_apply(title,pid,cid,wiid,wid,note,status,appmid)
 		VALUES (#{title},#{pid},#{cid},#{wiid},#{wid},#{note},#{status},#{appmid})
 	</insert>
-	<update id="doEditStatus" parameterType="map">
-		UPDATE storage_apply SET status=#{status} WHERE said=#{said};
+	<update id="doEditStatus" parameterType="StorageApply">
+		UPDATE storage_apply SET status=#{status} ,apptime=#{apptime} WHERE said=#{said};
 	</update>
 
+	<select id="findBySaid" parameterType="Long" resultType="StorageApply">
+		SELECT said,title,pid,cid,wiid,wid,note,status,appmid
+		FROM storage_apply WHERE said=#{said}
+	</select>
+	
 	<select id="findSplit" parameterType="map" resultType="StorageApply">
 		SELECT said,title,pid,cid,wiid,wid,note,status,appmid
 		FROM storage_apply
 		<where>
 			<if test="column !=null and keyWord != null">
-				${column} like #{keyWord}
+				${column} like #{keyWord} and
 			</if>
+			appmid = #{appmid}
 		</where>
 		LIMIT #{start},#{lineSize};
 	</select>
@@ -24,8 +30,9 @@
 		SELECT count(*) FROM storage_apply 
 		<where>
 				<if test="column !=null and keyWord != null">
-					${column} like #{keyWord}
+					${column} like #{keyWord} and 
 				</if>
+				appmid = #{appmid}
 		</where>
 	</select>
 	
@@ -34,9 +41,8 @@
 		FROM storage_apply WHERE status=0;
 	</select>
 	
-	<select id="findBySaid" parameterType="Long" resultType="StorageApply">
-		SELECT said,title,pid,cid,wiid,wid,note,status,appmid
-		FROM storage_apply WHERE said=#{said} and status=0;
-	</select>
+	<delete id="doDelete" parameterType="java.lang.Long">
+		delete from storage_apply where said = #{said} 
+	</delete>
 	
 </mapper>

@@ -1,6 +1,7 @@
 package cn.mldn.dibmp.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * 待审核清单
  * @author Administrator
@@ -16,7 +17,29 @@ public class StorageApply implements Serializable {
 	private Long wid;
 	private String note;
 	private Integer status;		//0 待审核，1.审核通过
-	private String appmid;
+	private String appmid;		//提交人姓名
+	private String auname;		//申请人姓名
+	private Date  apptime;
+	private Date autime;
+	
+	public Date getApptime() {
+		return apptime;
+	}
+	public void setApptime(Date apptime) {
+		this.apptime = apptime;
+	}
+	public Date getAutime() {
+		return autime;
+	}
+	public void setAutime(Date autime) {
+		this.autime = autime;
+	}
+	public String getAuname() {
+		return auname;
+	}
+	public void setAuname(String auname) {
+		this.auname = auname;
+	}
 	public Long getSaid() {
 		return said;
 	}
@@ -74,8 +97,11 @@ public class StorageApply implements Serializable {
 	@Override
 	public String toString() {
 		return "StorageApply [said=" + said + ", title=" + title + ", pid=" + pid + ", cid=" + cid + ", wiid=" + wiid
-				+ ", wid=" + wid + ", note=" + note + ", status=" + status + ", appmid=" + appmid + "]";
+				+ ", wid=" + wid + ", note=" + note + ", status=" + status + ", appmid=" + appmid + ", auname=" + auname
+				+ ", apptime=" + apptime + ", autime=" + autime + "]";
 	}
+	
+	
 	
 	
 }

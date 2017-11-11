@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.CustomerMapper">
+
+   
+	<insert id="doCreate" parameterType="Customer">
+	   INSERT INTO Customer(name,phone,address,note) VALUES 
+	   (#{name},#{phone},#{address},#{note});
+	</insert>
+	
+	<select id="getAllSplitCount" resultType = "long" parameterType="map">
+	    SELECT COUNT(*) FROM customer
+	    <where>
+	       <if test ="column!=null and keyWord!=null">
+	           ${column} LIKE #{keyWord}
+	       </if>
+	    </where>
+	</select>
+	
+	<select id="findAllSplit" resultType="Customer" parameterType="map">
+	   SELECT c.name,c.phone,c.address,c.indate,c.connum,c.recorder FROM customer c
+	   <where>
+	      <if test="column!=null and keyWord!=null">
+	         ${column} LIKE #{keyWord}
+	      </if>
+	   </where>
+	   LIMIT #{start},#{lineSize}
+	</select>
+	
+	<select id="findAllCustomerByCmid" resultType="Customer">
+	   SELECT c.cuid,
+	          c.ciid,
+	          c.name,
+	          c.phone,
+	          c.address,
+	          c.indate,
+	          c.connum,
+	          c.recorder,
+	          cr.note
+	   FROM customer c 
+	        inner join customer_record cr on c.cuid=cr.cuid
+	   where cr.cuid=#{cuid}
+	</select>
+</mapper>

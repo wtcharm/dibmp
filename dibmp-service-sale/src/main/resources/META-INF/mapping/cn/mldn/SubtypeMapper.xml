@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.SubtypeMapper">
+	
+	<resultMap type="Subtype" id="subtypeMap">
+	      <id property="stid" column="stid"/>
+	      <result property="title" column="title"/>
+	</resultMap>
+	<select id="findAll" resultType="Subtype">
+	    select wiid,title from witem
+	</select>
+</mapper>

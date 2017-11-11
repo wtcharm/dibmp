@@ -10,4 +10,5 @@ public interface IWarehouseDAO {
 	public List<Warehouse> findAllSplit(Map<String,Object> params) ;
 	public Long getSplitCount(Map<String,Object> params) ;
 	public boolean doCreateAdmin(Warehouse vo) ;
+	public List<Warehouse> findAllName() ;
 }

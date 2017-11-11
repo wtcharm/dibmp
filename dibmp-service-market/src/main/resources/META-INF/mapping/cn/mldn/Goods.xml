@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.ccc.IGoodsDAO">
+	<insert id="doCreate" parameterType="Goods">
+		INSERT INTO goods(name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag)
+			VALUES(#{name},#{wiid},#{stid},#{price},#{weight},#{photo},#{note},#{lastin},#{stornum},#{recorder},#{delflag});
+	</insert>
+	<!-- <select id="findAll" parameterType="Map" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder FROM goods where delflag=0;
+	</select> -->
+	<select id="findAllSplit" parameterType="Map" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder FROM goods 
+		<where>
+			<if test="column !=null and keyWord != null">
+				${column} like #{keyWord} and
+			</if>
+			 delflag=0
+		</where>
+		LIMIT #{start},#{lineSize};
+	</select>
+	<select id="getSplitCount" parameterType="Map" resultType="long">
+		SELECT count(*) FROM goods
+		<where>
+			<choose>
+				<when test="column !=null and keyWord != null">
+					${column} like #{keyWord} and delflag=0
+				</when>
+				<otherwise>
+					delflag=0
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	<select id="findByName" parameterType="String" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag
+		FROM goods WHERE name=#{name}
+	</select>
+	<select id="findById" parameterType="long" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag 
+		FROM goods WHERE gid=#{gid}
+	</select>
+	<update id="doEdit" parameterType="Goods">
+		UPDATE goods 
+		SET name=#{name},stid=#{stid},price=#{price},
+			photo=#{photo},note=#{note},lastin=#{lastin},recorder=#{recorder}
+		WHERE gid=#{gid};
+	</update>
+</mapper>

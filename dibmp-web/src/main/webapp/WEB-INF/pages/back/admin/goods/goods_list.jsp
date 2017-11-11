@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <script type="text/javascript" src="js/pages/back/admin/goods/goods_list.js"></script>
 <script type="text/javascript" src="js/split_page.js"></script>
@@ -41,21 +42,49 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${allGoods}" var="goods">
 						<tr>
-							<td class="text-left">100001</td>
-							<td class="text-left"><a href="<%=GOODS_SHOW_URL%>" title="查看商品详情">胡友牌化粪池</a></td>
-							<td class="text-center">4456</td>
-							<td class="text-center">200g</td>
-							<td class="text-center">2018-10-13</td>
-							<td class="text-center"><span id="storage-1" style="cursor:pointer;">3000</span></td>
-							<td class="text-center"><span id="mid-admin" style="cursor:pointer;">老李</span></td> 
+							<td class="text-left">${goods.gid}</td>
+							<td class="text-left"><a href="<%=GOODS_SHOW_URL%>?gid=${goods.gid}" title="查看商品详情"><span id="name-${goods.gid}">${goods.name}</span></a></td>
+							<td class="text-center"><span id="price-${goods.gid}">${goods.price}</span></td>
+							<td class="text-center"><span id="weight-${goods.gid}">${goods.weight}</span></td>
+							<td class="text-center"><span id="lastin-${goods.gid}"></span><fmt:formatDate value="${goods.lastin}" pattern="yyyy-MM-dd"/></td>
+							<td class="text-center"><span id="stornum-${goods.gid}" style="cursor:pointer;">${goods.stornum}</span></td>
+							<td class="text-center"><span id="mid-${goods.gid}" style="cursor:pointer;">${goods.recorder}</span></td> 
 							<td class="text-left">
-								<a href="<%=GOODS_EDIT_URL%>" class="btn btn-primary btn-xs">
+								<shiro:hasPermission name="goods:edit">
+									<a href="<%=GOODS_EDIT_URL%>?gid=${goods.gid}" class="btn btn-primary btn-xs">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-								<button class="btn btn-danger btn-xs" id="out-1">
+								</shiro:hasPermission>
+								
+								<shiro:hasRole name="salegoods">
+								<button class="btn btn-danger btn-xs" id="out-${goods.gid}">
 										<span class="glyphicon glyphicon-ok-circle"></span>&nbsp;待出库</button>
+								</shiro:hasRole>
 							</td>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 				<div id="splitBarDiv" style="float:right">

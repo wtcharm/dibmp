@@ -37,12 +37,33 @@
 							<th class="text-left" style="width:20%;">入库仓库</th>
 							<th class="text-center" style="width:10%;">商品类型</th>
 							<th class="text-center" style="width:10%;">申请状态</th>
-							<th class="text-center" style="width:10%;">商品数量</th>
 							<th class="text-left" style="width:20%;">操作</th>
 						</tr>
 					</thead>
 					<tbody>
+					
+					
+					<c:forEach items="${allStorageApply}" var="storageApply" >
 						<tr>
+							<th class="text-center" style="width:10%;">${storageApply.said}</th> 
+							<td class="text-left">
+								<a href="<%=STORAGE_EDIT_URL%>?sid=${storageApply.said}">${storageApply.title}</a></td>
+							<td class="text-left">${allWarehouseName[storageApply.wid]}</td>
+							<td class="text-center">${allWitem[storageApply.wiid]}</td>
+							<td class="text-center">${allSaStatus[storageApply.status]}</td>
+							<td class="text-left">
+								<a href="<%=STORAGE_SUBMIT_URL%>?sid=${storageApply.said}" class="btn btn-primary btn-xs">
+									<span class="fa fa-rocket"></span>&nbsp;提交申请</a>
+								<a href="<%=STORAGE_LIST_DETAILS_URL%>?sid=1" class="btn btn-warning btn-xs">
+									<span class="fa fa-th-list"></span>&nbsp;入库清单</a>
+								<a href="<%=STORAGE_DELETE_URL%>?sid=${storageApply.said}" class="btn btn-danger btn-xs">
+									<span class="glyphicon glyphicon-trash"></span>&nbsp;删除申请</a>
+							</td>
+						</tr>
+					</c:forEach>
+					
+					
+						<%-- <tr>
 							<th class="text-center" style="width:10%;">20001010</th> 
 							<td class="text-left">
 								<a href="<%=STORAGE_EDIT_URL%>?sid=1">2017双十一衣帽入库</a></td>
@@ -58,7 +79,7 @@
 								<a href="<%=STORAGE_DELETE_URL%>?sid=1" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-trash"></span>&nbsp;删除申请</a>
 							</td>
-						</tr>
+						</tr> --%>
 					</tbody>
 				</table>
 				<div id="splitBarDiv" style="float:right">

@@ -46,5 +46,39 @@ public abstract class AbstractService {
 		map.put("did", did) ;
 		return map ;
 	}
+	
+	public Map<String,Object> paramToMap(long currentPage, int lineSize, String column, String keyWord,String appmid) {
+		Map<String,Object> map = new HashMap<String,Object>() ;
+		map.put("start", (currentPage - 1) * lineSize) ;
+		map.put("lineSize", lineSize) ;
+		map.put("appmid", appmid) ;
+		if ("".equals(column)) {
+			map.put("column", null) ;	// 明确设置null
+		} else {
+			map.put("column", column) ;
+		}
+		if ("".equals(keyWord)) {
+			map.put("keyWord", null) ;	// 明确设置null
+		} else {
+			map.put("keyWord", "%"+keyWord+"%") ; 
+		}
+		return map ;
+	}
+	
+	public Map<String,Object> paramToMap(String column,String keyWord,String appmid){
+		Map<String,Object> map = new HashMap<String,Object>() ;
+		map.put("appmid", appmid) ;
+		if ("".equals(column)) {
+			map.put("column", null) ;	// 明确设置null
+		} else {
+			map.put("column", column) ;
+		}
+		if ("".equals(keyWord)) {
+			map.put("keyWord", null) ;	// 明确设置null
+		} else {
+			map.put("keyWord",  "%"+keyWord+"%") ; 
+		}
+		return map ;
+	}
 
 }

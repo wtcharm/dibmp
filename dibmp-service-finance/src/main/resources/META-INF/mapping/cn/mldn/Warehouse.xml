@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.IWarehouseDAO">
+	<!-- 增加一个仓库 -->
+	<insert id="doCerate" parameterType="Warehouse"> 
+		INSERT INTO warehouse(name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin)
+		VALUES (#{name},#{pid},#{cid},#{wiid},#{address},#{area},#{maximum},#{currnum},#{photo},#{note},#{recorder},#{admin}) 
+	</insert>
+	<!-- 分页（模糊）查询列表 -->
+	<select id="findAllSplit" parameterType="Map" resultType="Warehouse">
+		SELECT wid,name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin FROM warehouse 
+		<where>
+			<if test="column !=null and keyWord != null">
+				${column} like #{keyWord}
+			</if>
+		</where>
+		LIMIT #{start},#{lineSize};
+	</select>
+	
+	<!-- （模糊）查询总数量 -->
+	<select id="getSplitCount" parameterType="Map" resultType="long">
+		SELECT count(*) FROM warehouse
+		<where>
+				<if test="column !=null and keyWord != null">
+					${column} like #{keyWord}
+				</if>
+		</where>
+	</select>
+	
+	<select id="findByWid" parameterType="Long" resultType="Warehouse">
+		SELECT wid,name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin FROM warehouse WHERE wid=#{wid}
+	</select>
+	
+	<select id="findByWitem" parameterType="Long" resultType="Warehouse">
+		SELECT wid,name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin FROM warehouse WHERE wiid=#{wiid}
+	</select>
+	
+	<select id="findByWidMap" parameterType="Long" resultType="Map">
+		SELECT wid,name FROM warehouse WHERE wid=#{wid}
+	</select>
+	
+</mapper>

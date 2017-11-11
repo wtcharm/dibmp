@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+_<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -14,16 +14,19 @@
 	
 	public static final String STORAGE_ADD_URL = "pages/back/admin/storage/add_pre.action" ;
 	public static final String STORAGE_LIST_URL = "pages/back/admin/storage/list_myself.action" ;
-	
 	public static final String STORAGE_AUDIT_LIST_URL = "pages/back/admin/storageaudit/list_prepare.action" ;
 	public static final String STORAGE_AUDIT_HISTORY_URL = "pages/back/admin/storageaudit/list_history.action" ;
 
-	public static final String GOODS_ADD_URL = "pages/back/admin/goods/add_pre.action" ;	
+	public static final String GOODS_ADD_URL = "pages/back/admin/goods/add_preGoods.action" ;	
 	public static final String GOODS_LIST_URL = "pages/back/admin/goods/list.action" ;
 	
-	public static final String DISTRIBUTION_GOODS_LIST_URL = "pages/back/admin/distribution/goods_list.action" ;
+	/* public static final String DISTRIBUTION_GOODS_LIST_URL = "pages/back/admin/distribution/goods_list.action" ;
 	public static final String DISTRIBUTION_LIST_URL = "pages/back/admin/distribution/list_myself.action" ;
+	public static final String DISTRIBUTION_CLEAR_URL = "pages/back/admin/distribution/clear.action" ; */
+	public static final String DISTRIBUTION_GOODS_LIST_URL = "pages/back/admin/goods/unStorageGoods.action" ;
+	public static final String DISTRIBUTION_LIST_URL = "pages/back/admin/goods/listDistribution.action" ;
 	public static final String DISTRIBUTION_CLEAR_URL = "pages/back/admin/distribution/clear.action" ;
+
 	
 	
 	public static final String MANAGE_STORAGE_INPUT_URL = "pages/back/admin/manage/storage_input_pre.action" ;

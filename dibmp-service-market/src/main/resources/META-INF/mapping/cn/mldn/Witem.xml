@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.mldn.dibmp.dao.IWitemDAO">
+<mapper namespace="cn.mldn.dibmp.dao.ccc.IWitemDAO">
 	<select id="findAll" resultType="Witem">
 		SELECT wiid,title FROM witem ;
+	</select>
+	<!-- <resultMap type="Witem" id="WitemResultMap">
+		<id property="wiid" column="wiid"/>
+		<result property="title" column="title"/>
+	</resultMap> -->
+	<select id="findByWiidMap" parameterType="Long" resultType="Map">
+		SELECT wiid,title FROM witem WHERE wiid=#{wiid};
 	</select>
 </mapper>

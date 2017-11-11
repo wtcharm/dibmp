@@ -24,27 +24,29 @@
 					<table class="table table-striped table-bordered table-hover">
 						<tr> 
 							<td style="width:150px;"><strong>入库标题：</strong></td>
-							<td>双13备货</td>
+							<td>${storageApply.title}</td>
 						</tr>
 						<tr>
 							<td><strong>存入仓库名称：</strong></td>
-							<td>北京市 北京市 通州一号仓库</td>
+							<td>${warehouses.name}</td>
 						</tr>
 						<tr>
 							<td><strong>仓库类型：</strong></td>
-							<td>衣帽服饰</td>
+							<td>${witems.title}</td>
 						</tr>
 						<tr>
 							<td><strong>备注信息：</strong></td>
-							<td>我要上</td>
+							<td>${storageApply.note}</td>
 						</tr>
+						<c:if test="${storageApply.status==0||storageApply.status==3}">
 						<tr>
 							<td><strong>入库操作：</strong></td>
 							<td>
-								<button id="addbut" class="btn btn-danger btn-xs">
+								<button id="addbut" class="btn btn-danger btn-xs" >
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;追加商品</button>
 							</td>
 						</tr>
+						</c:if>
 					</table>
 				</div>
 				<div>
@@ -56,23 +58,29 @@
 								<th class="text-left" style="width:10%;">入库数量</th>
 								<th class="text-left" style="width:10%;">商品单价（元）</th>
 								<th class="text-left" style="width:10%;">单位重量（g）</th>
+								<c:if test="${storageApply.status==0||storageApply.status==3}">
 								<th class="text-left" style="width:20%;">操作</th>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="dettr-1" class="text-success">
-								<td><input type="text" id="gid-1" value="100001"/></td>
-								<td><input type="text" id="name-1" value="衣服" size="50"/></td>
-								<td><input type="text" id="amount-1" value="50" maxlength="8" size="8"/></td>
-								<td><input type="text" id="price-1" value="39.2" maxlength="8" size="8"/></td>
-								<td><input type="text" id="weight-1" value="200g" maxlength="8" size="8"/></td>
+						<c:forEach items="${storageApplyDetails}" var="storageApplyDetails">
+							<tr id="dettr-${storageApplyDetails.sadid}" class="text-success">
+								<td><input type="text" id="gid-${storageApplyDetails.sadid}" value="${storageApplyDetails.gid}"/></td>
+								<td><input type="text" id="name-${storageApplyDetails.sadid}" value="${storageApplyDetails.name}" size="50"/></td>
+								<td><input type="text" id="amount-${storageApplyDetails.sadid}" value="${storageApplyDetails.num}" maxlength="8" size="8"/></td>
+								<td><input type="text" id="price-${storageApplyDetails.sadid}" value="${storageApplyDetails.price}" maxlength="8" size="8"/></td>
+								<td><input type="text" id="weight-${storageApplyDetails.sadid}" value="${storageApplyDetails.weight}" maxlength="8" size="8"/></td>
+								<c:if test="${storageApply.status==0||storageApply.status==3}">
 								<td>
-									<button id="save-1" class="btn btn-primary btn-xs">
+									<button id="save-${storageApplyDetails.sadid}" class="btn btn-primary btn-xs">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;保存</button>
-									<button id="remove-1" class="btn btn-danger btn-xs">
+									<button id="remove-${storageApplyDetails.sadid}" class="btn btn-danger btn-xs">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;移除</button>
 								</td>
+								</c:if>
 							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>

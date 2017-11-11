@@ -23,23 +23,23 @@
 					<table class="table table-striped table-bordered table-hover">
 						<tr> 
 							<td style="width:150px;"><strong>入库单编号：</strong></td>
-							<td>1101010</td>
+							<td id="said">${applyAll.said}</td>
 						</tr>
 						<tr> 
 							<td><strong>入库标题：</strong></td>
-							<td>双13备货</td>
+							<td>${applyAll.title}</td>
 						</tr>
 						<tr>
 							<td><strong>存入仓库名称：</strong></td>
-							<td>北京市 北京市 通州一号仓库</td>
+							<td>${allWareHouse.address}</td>
 						</tr>
 						<tr>
 							<td><strong>仓库类型：</strong></td>
-							<td>衣帽服饰</td>
+							<td>${allWitem.title}</td>
 						</tr>
 						<tr>
 							<td><strong>备注信息：</strong></td>
-							<td>我要上</td>
+							<td>${applyAll.note}</td>
 						</tr>
 					</table>
 				</div>
@@ -55,20 +55,8 @@
 								<th class="text-left" style="width:20%;">操作</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr id="dettr-1" class="text-success">
-								<td>100001</td>
-								<td>衣服</td>
-								<td>50</td>
-								<td>39.2</td>
-								<td>200</td>
-								<td>
-									<button id="access-1" class="btn btn-primary btn-xs">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;允许入库</button>
-									<button id="denied-1" class="btn btn-danger btn-xs">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;拒绝入库</button>
-								</td>
-							</tr>
+						<tbody id="tbodyTite">
+							
 						</tbody>
 					</table>
 				</div>

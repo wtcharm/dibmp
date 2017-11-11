@@ -40,14 +40,16 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${allDistribution}" var="distribution">
 						<tr>
-							<th class="text-center" style="width:10%;">20001010</th> 
-							<td class="text-left">2017双十一衣帽入库</td>
-							<td class="text-center">北京</td>
-							<td class="text-center">北京</td>
-							<td class="text-center">100</td>
-							<td class="text-center">1000.77</td>
+							<th class="text-center" style="width:10%;">${distribution.dsid}</th> 
+							<td class="text-left">${distribution.title}</td>
+							<td class="text-center">${distribution.pid}</td>
+							<td class="text-center">${distribution.cid}</td>
+							<td class="text-center">${distribution.gnum}</td>
+							<td class="text-center">${distribution.price}</td>
 						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 				<div id="splitBarDiv" style="float:right">

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.CityMapper">
+	<select id="findAll" parameterType="String" resultType="City">
+		SELECT cid,pid,title FROM city ;
+	</select>
+	
+	<select id="findById" resultType="City">
+		SELECT cid,pid,title FROM city WHERE cid=#{cid} ;
+	</select>
+	
+	<select id="findByPid" resultType="City">
+	    SELECT cid,pid,title from city WHERE pid=#{pid}
+	</select> 
+</mapper>
