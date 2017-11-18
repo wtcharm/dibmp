@@ -37,38 +37,28 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="text-center"><span id="cid-1" style="cursor:pointer;" title="查看联系记录">胡友</span></td>
-							<td class="text-left">1234456</td>
-							<td class="text-left"><span class="text-danger">重要客户</span></td>
-							<td class="text-left">北京中医院</td>
-							<td class="text-left">2018-10-13</td>
-							<td class="text-center">3</td>
-							<td class="text-center"><span id="mid-admin" style="cursor:pointer;">老李</span></td> 
-							<td class="text-left">
-								<button class="btn btn-primary btn-xs" id="input-1">
+						<c:forEach items="${allCustomers}" var="cus">
+						 <tr>
+								<td class="text-center"><span id="cid-${cus.cuid}" style="cursor:pointer;" title="查看联系记录">${cus.name}</span></td>
+								<td class="text-left">${cus.phone}</td>
+								<td>
+								       <span class="text-danger">${allCitems[cus.cuid].title}</span>
+								</td>
+								<td class="text-left">${cus.address}</td>
+								<td class="text-left"><fmt:formatDate value="${cus.indate}" pattern="yyyy-MM-dd"/></td>
+								<td class="text-center">${cus.connum}</td>
+								<td class="text-center"><span id="mid-admin" style="cursor:pointer;">${allRecords[cus.cuid].name}</span></td> 
+								<td class="text-left">
+								<button class="btn btn-primary btn-xs" id="input-${cus.cuid}">
 										<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;追加记录</button>
-								<button class="btn btn-danger btn-xs" id="out-1">
+								<button class="btn btn-danger btn-xs" id="out-${cus.cuid}">
 										<span class="glyphicon glyphicon-log-out"></span>&nbsp;商品出库</button>
-							</td>
+							    </td>
 						</tr>
-						<tr>
-							<td class="text-center"><span id="cid-1" style="cursor:pointer;" title="查看联系记录">胡减</span></td>
-							<td class="text-left">1234456</td>
-							<td class="text-left"><span class="text-primary">大单客户</span></td>
-							<td class="text-left">北京中医院</td>
-							<td class="text-left">2018-10-13</td>
-							<td class="text-center">3</td>
-							<td class="text-center"><span id="mid-admin" style="cursor:pointer;">老李</span></td> 
-							<td class="text-left">
-								<button class="btn btn-primary btn-xs" id="input-2">
-										<span class="glyphicon glyphicon-floppy-save"></span>&nbsp;追加记录</button>
-								<button class="btn btn-danger btn-xs" id="out-2">
-										<span class="glyphicon glyphicon-log-out"></span>&nbsp;商品出库</button>
-							</td>
-						</tr>
+					 </c:forEach>
 					</tbody>
 				</table>
+				<%-- <input type="hidden" name="cuid" id="cuid" value="${cus.cuid}"> --%>
 				<div id="splitBarDiv" style="float:right">
 					<jsp:include page="/WEB-INF/pages/plugins/split_plugin_page_bar.jsp"/> 
 				</div>
@@ -84,8 +74,43 @@
 		<jsp:include page="/WEB-INF/pages/plugins/back/include_menu_sidebar.jsp" />
 		<div class="control-sidebar-bg"></div>
 	</div>
-	<jsp:include page="/WEB-INF/pages/plugins/back/info/member_info_modal.jsp"/>
-	<jsp:include page="/WEB-INF/pages/plugins/back/info/customer_record_list_modal.jsp"/>
+	<div class="modal fade" id="customerRecordInfo"  tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-keyboard="true">
+	<div class="modal-dialog" style="width: 1300px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<div class="form-group" id="didDiv">
+					<strong><span class="glyphicon glyphicon-eye-open"></span>&nbsp;客户联系记录</strong></h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div id="customerRecordInfo">
+					<table class="table table-condensed table-hover" id="recordTable">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:20%"><strong>联系日期</strong></th>
+								<th class="text-left" style="width:10%"><strong>联系业务员</strong></th>
+								<th class="text-left" style="width:10%"><strong>业务员电话</strong></th>
+								<th class="text-left" style="width:60%"><strong>联系记录</strong></th>
+							</tr>
+						</thead>
+						<tbody id="mycuid">
+						
+						</tbody>
+					</table>
+				</div>
+				<div id="pageDiv" class="text-right">
+					<ul class="pagination pagination-sm" id="pagecontrol"></ul>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭窗口</button>
+			</div>
+		</div>
+	</div>
+</div>
+	<%-- <jsp:include page="/WEB-INF/pages/plugins/back/info/member_info_modal.jsp"/> --%>
+    <%--<jsp:include page="/WEB-INF/pages/plugins/back/info/customer_record_list_modal.jsp"/>  --%>
 	<jsp:include page="/WEB-INF/pages/plugins/back/info/customer_record_input_modal.jsp"/> 
 	<jsp:include page="/WEB-INF/pages/plugins/back/include_javascript_foot.jsp" />
 <jsp:include page="/WEB-INF/pages/plugins/back/back_footer.jsp"/>

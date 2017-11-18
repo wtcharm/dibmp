@@ -25,27 +25,27 @@ $(function(){
 		errorClass : "text-danger",
 		rules : {
 			"name" : {
-				required : true
-				//remote : {	// 确保仓库名称不重复
-//				url : "check.jsp", // 后台处理程序
-//				type : "post", // 数据发送方式
-//				dataType : "html", // 接受数据格式
-//				data : { // 要传递的数据
-//					code : function() {
-//						return $("#code").val();
-//					}
-//				},
-//				dataFilter : function(data, type) {
-//					if (data.trim() == "true")
-//						return true;
-//					else
-//						return false;
-//				}
-//}
+				required : true,
+				remote : {	    // 确保客户名字不重复
+				url : "pages/back/admin/customer/add_check.action", // 后台处理程序
+				type : "post", // 数据发送方式
+				dataType : "html", // 接受数据格式
+				data : { // 要传递的数据
+					name : function() {
+						return $("#name").val();
+					}
+				},
+				dataFilter : function(data, type) {
+					if (data.trim() == "true")
+						return true;
+					else
+						return false;
+				}
+}
 			} ,
-			"ename" : {
+			/*"name" : {
 				required : true
-			} ,
+			} ,*/
 			"tid" : { 
 				required : true 
 			},
@@ -73,7 +73,15 @@ $(function(){
 		handleAddress() ;	// 处理地址 
 	}) ;
 	$(pid).on("change",function(){
+		console.log("*******"+this.value);
 		if (this.value != "") {	// 有内容，需要进行ajax异步加载
+			$.post("pages/back/admin/customer/listCity.action",{"pid":this.value},
+					function(data){
+				$("#cid option:gt(0)").remove() ;
+				for (x = 0 ; x < data.allCities.length ; x ++) {
+					$("#cid").append("<option value='"+data.allCities[x].cid+"'>"+data.allCities[x].title+"</option>") ;
+				}
+			},"json") ;
 			handleAddress() ;	// 处理地址 
 		} else {
 			$("#cid option:gt(0)").remove() ;

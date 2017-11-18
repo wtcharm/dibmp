@@ -16,4 +16,6 @@
 	<dubbo:reference id="memberInstance" interface="cn.mldn.dibmp.service.IMemberService" version="${dubbo.interface.version}" />
  <dubbo:reference id="saleInstance"
 		interface="cn.mldn.dibmp.service.ISaleService" version="${dubbo.interface.version}" />
+	<dubbo:reference id="saleInstancejdk"
+		interface="cn.mldn.dibmp.service.ISaleServicejdk" version="${dubbo.interface.version}" /> 
 </beans>

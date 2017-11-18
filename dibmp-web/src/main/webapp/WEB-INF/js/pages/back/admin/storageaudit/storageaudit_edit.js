@@ -1,8 +1,8 @@
 var href = window.location.href;//请求路径
-var sid =href.substr(href.indexOf("?"+1));
+var sid =href.substr(href.indexOf("="+1)).split("=")[1];
 
 $(function(){
-
+	console.log(sid) ;
 	$("span[id^=showMember_]").on("click",function(){
 		$("#memberInfo").modal("toggle") ;
 		mid = this.id.split("_")[1] ;

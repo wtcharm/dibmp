@@ -1,11 +1,13 @@
 package cn.mldn.util.action.abs;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.MessageSource;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -97,6 +99,14 @@ public abstract class AbstractAction {
 			return this.messageSource.getMessage(key, args, null) ;
 		} catch (Exception e) {
 			return null ;
+		}
+	}
+	public void print(HttpServletResponse response, Object val) {
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().print(val);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

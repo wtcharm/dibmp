@@ -106,9 +106,9 @@ $(function() {
 		}
 		$.post("pages/back/admin/goods/calculateAmountAndSumPrice",{"amount":sumAmount,"sumPrice":sumPrice,"ids":ids},function(data){
 			if(data == "true"){
-				window.location = "http://localhost:80/dibmp/pages/back/admin/goods/add_pre";
+				window.location = "http://192.168.28.157:80/dibmp/pages/back/admin/goods/add_pre";
 			}else{
-				window.location = "http://localhost:80/dibmp/pages/back/admin/goods/unStorageGoods";
+				window.location = "http://192.168.28.157:80/dibmp/pages/back/admin/goods/unStorageGoods";
 			}
 		},"json");
 	});

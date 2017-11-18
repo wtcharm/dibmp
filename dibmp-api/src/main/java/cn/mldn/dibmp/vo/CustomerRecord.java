@@ -11,6 +11,13 @@ public class CustomerRecord implements Serializable {
 	private Date cdate;
 	private Long criid;
 	private String note;
+	private String title ;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getTitle() {
+		return title;
+	}
 	public Long getCrid() {
 		return crid;
 	}

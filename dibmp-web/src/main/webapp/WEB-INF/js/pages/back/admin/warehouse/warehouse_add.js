@@ -72,11 +72,19 @@ $(function(){
 			}
 		}
 	});
+	
 	$(cid).on("change",function() {
 		handleAddress() ;	// 处理地址 
 	}) ;
 	$(pid).on("change",function(){
 		if (this.value != "") {	// 有内容，需要进行ajax异步加载
+			$.post("pages/back/admin/warehouse/listCity.action",{"pid":this.value},
+					function(data){
+				$("#cid option:gt(0)").remove() ;
+				for (x = 0 ; x < data.length ; x ++) {
+					$("#cid").append("<option value='"+data[x].cid+"'>"+data[x].title+"</option>") ;
+				}
+			},"json") ;
 			handleAddress() ;	// 处理地址 
 		} else {
 			$("#cid option:gt(0)").remove() ;

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.mldn.dibmp.ccc.service.ICityService;
+import cn.mldn.dibmp.ccc.service.IProvinceService;
+import cn.mldn.dibmp.ccc.service.IWitemService;
 import cn.mldn.dibmp.fyh.service.IWarehouseService;
 import cn.mldn.dibmp.service.IMemberService;
 import cn.mldn.dibmp.vo.Warehouse;
@@ -24,10 +27,23 @@ public class WarehouseActionBack extends AbstractAction {
 	private IWarehouseService warehouseService ;
 	@Resource
 	private IMemberService MemberService ; 
+	@Resource
+	private IProvinceService provinceService;
+	@Resource
+	private ICityService cityService;
+	@Resource
+	private IWitemService witemService;
 	@RequestMapping("add_pre")
 	public ModelAndView addPre() {
 		ModelAndView mav = new ModelAndView(super.getPage("warehouse.add.page"));
+		mav.addObject("allProvinces",provinceService.findAll());
+		mav.addObject("allWitem",witemService.list());
 		return mav;
+	}
+	@RequestMapping("listCity")
+	@ResponseBody
+	public Object listCity(long pid) {
+		return cityService.listByProvince(pid);
 	}
 	@RequestMapping("add")
 	public ModelAndView add(Warehouse vo, MultipartFile pic) {

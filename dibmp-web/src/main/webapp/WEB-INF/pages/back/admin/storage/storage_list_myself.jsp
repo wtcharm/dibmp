@@ -54,7 +54,7 @@
 							<td class="text-left">
 								<a href="<%=STORAGE_SUBMIT_URL%>?sid=${storageApply.said}" class="btn btn-primary btn-xs">
 									<span class="fa fa-rocket"></span>&nbsp;提交申请</a>
-								<a href="<%=STORAGE_LIST_DETAILS_URL%>?sid=1" class="btn btn-warning btn-xs">
+								<a href="<%=STORAGE_LIST_DETAILS_URL%>?sid=${storageApply.said}" class="btn btn-warning btn-xs">
 									<span class="fa fa-th-list"></span>&nbsp;入库清单</a>
 								<a href="<%=STORAGE_DELETE_URL%>?sid=${storageApply.said}" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-trash"></span>&nbsp;删除申请</a>

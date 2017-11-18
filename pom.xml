@@ -518,5 +518,6 @@
         <module>dibmp-service-market</module>
         <module>dibmp-service-finance</module>
         <module>dibmp-service-warehouse</module>
+    <module>dibmp-service-jdk</module>
   </modules>
 </project>

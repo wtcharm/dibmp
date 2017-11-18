@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.CustomerMapper">
+	<insert id="doCreate" parameterType="Customer">
+	   INSERT INTO Customer(cuid,name,phone,pid,cid,address,indate,connum,ciid,csid,note,recorder) VALUES 
+	   (#{cuid},#{name},#{phone},#{pid},#{cid},#{address},#{indate},#{connum},#{ciid},#{csid},#{note},#{recorder});
+	</insert>
+	<select id="findAll" resultType="Customer" parameterType="map">
+	   SELECT cuid,name,phone,pid,cid,address,indate,connum,ciid,csid,note,recorder FROM customer
+	</select>
+	
+	<select id="findById" resultType="Customer" parameterType="long">
+	   SELECT cuid,name,phone,pid,cid,address,indate,connum,ciid,csid,note,recorder FROM customer where cuid=#{cuid};
+	</select>
+	<select id="findByName" resultType="Customer" parameterType="String">
+	   SELECT cuid,name,phone,pid,cid,address,indate,connum,ciid,csid,note,recorder FROM customer where name=#{name};
+	</select>
+	<select id="getAllSplitCount" resultType = "long" parameterType="map">
+	    SELECT COUNT(*) FROM customer
+	    <where>
+	       <if test ="column!=null and keyWord!=null">
+	           ${column} LIKE #{keyWord}
+	       </if>
+	    </where>
+	</select>
+	<select id="findAllSplit" resultType="Customer" parameterType="map">
+	   SELECT cuid,name,phone,address,indate,connum,recorder,ciid FROM customer
+	   <where>
+	      <if test="column!=null and keyWord!=null">
+	         ${column} LIKE #{keyWord}
+	      </if>
+	   </where>
+	   LIMIT #{start},#{lineSize}
+	</select>
+	<update id="editConnum" parameterType="Customer">
+	    UPDATE customer SET connum = #{conum}
+	</update>
+</mapper>

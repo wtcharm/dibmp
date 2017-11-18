@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.CustomerRecordMapper">
+	<select id="findByCmid" parameterType="String" resultType="CustomerRecord">
+		SELECT crid,cmid,cdate,criid,note,cuid,title 
+		FROM customer_record
+		WHERE cmid=#{cmid};
+	</select>
+	<select id="findNameByMid" resultType="Member" parameterType="String">
+	   SELECT name FROM member where mid=#{mid};
+	</select>
+	<select id="findAll" resultType="map">
+	    SELECT crid,cmid,cdate,criid,note,cuid,title from critem;
+	</select>
+	<insert id="doCreateCustomerRecord" parameterType="CustomerRecord" useGeneratedKeys="true" keyProperty="crid">
+	   INSERT INTO customer_record (cmid,cdate,criid,note,cuid,title) VALUES (#{cmid},#{cdate},#{criid},#{note},#{cuid},#{title});
+	</insert>
+	
+	<!-- <select id="getAllSplitCount" resultType = "long" parameterType="map">
+	    SELECT COUNT(*) FROM customer_record cr inner join customer c on cr.cuid = c.cuid inner join member m on cr.cmid = m.mid
+	    <where>
+	       <if test ="column!=null and keyWord!=null">
+	           ${column} LIKE #{keyWord} and
+	       </if>
+	       cr.cuid = #{cuid} and cr.cmid = #{cmid}
+	    </where>
+	</select> -->
+	<!-- <select id="findAllSplit" resultType="CustomerRecord" parameterType="map">
+	   SELECT cr.cdate,cr.note FROM customer_record cr inner join customer c on cr.cuid = c.cuid inner join member m on cr.cmid = m.mid
+	   <where>
+	      <if test="column!=null and keyWord!=null">
+	         ${column} LIKE #{keyWord} and
+	      </if>
+	        cr.cuid = #{cuid} and cr.cmid = #{cmid}
+	   </where> 
+	   order by cr.cdate desc
+	   LIMIT #{start},#{lineSize}
+	</select> -->
+	<select id="findAllSplit" resultType="CustomerRecord" parameterType="map">
+	   SELECT crid,cmid,cdate,note FROM customer_record WHERE cmid=#{cmid} and cuid=#{cuid} 
+	   LIMIT #{start},#{lineSize}
+	</select> 
+	<select id="getAllSplitCount" resultType = "long" parameterType="map">
+		 SELECT COUNT(*) FROM customer_record WHERE cmid=#{cmid} and cuid=#{cuid} 
+	</select>
+	<select id="findAllCrById" resultType = "CustomerRecord" parameterType="long">
+		 select * from customer_record where cuid =#{cuid};
+	</select>
+	<select id="getPhone" resultType="String" parameterType="Long">
+	   select phone from customer_record where crid=#{crid};
+	</select>
+</mapper>
